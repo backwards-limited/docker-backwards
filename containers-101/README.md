@@ -2,4 +2,4 @@
 
 ## Table of Contents
 
-- [Introduction](docs/introduction.md)
+- [Docker First Steps](docs/docker-first-steps.md)
