@@ -7,8 +7,10 @@ Docker functionality showing example usage while covering Docker courses, such a
 ## Table of Contents
 
 - [Setup](docs/setup.md)
+
+- [Terminology](docs/terminology.md)
   
-- [Useful Commands](docs/commands.md) 
+- [Useful Commands](docs/commands.md)
 
 - Courses
 
