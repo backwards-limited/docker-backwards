@@ -111,7 +111,6 @@ $ express microservice
   warning: the default view engine will not be jade in future releases
   warning: use `--view=jade' or `--help' for additional options
 
-
    create : microservice/
    create : microservice/public/
    create : microservice/public/javascripts/

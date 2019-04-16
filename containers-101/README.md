@@ -3,3 +3,5 @@
 ## Table of Contents
 
 - [Docker First Steps](docs/docker-first-steps.md)
+
+- [Dockerfile](docs/dockerfile.md)

@@ -1,5 +1,9 @@
 # Terminology
 
+## Docker File
+
+A recipe for Docker image.
+
 ## Docker Image
 
 Blueprint of our application.
