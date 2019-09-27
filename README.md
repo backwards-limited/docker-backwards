@@ -14,4 +14,6 @@ Docker and also Kubernetes while covering courses, such as:
 
 - Courses
 
+  - [Containers 101](courses/containers-101/README.md)
+  
   - [Docker Mastery](courses/docker-mastery/README.md)
