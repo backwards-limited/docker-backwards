@@ -1,0 +1,43 @@
+version: '1.0'
+steps:
+
+  build_step:
+    type: build
+    dockerfile: Dockerfile
+    image-name: demochat
+    tag: ${{CF_BRANCH}}
+
+  simple_travis_step:
+     type: travis
+     fail_fast: false
+     services:
+       app:
+         image: ${{build_step}}
+         links:
+           - mongo
+         ports:
+           - 5000
+       mongo:
+         image: mongo
+     test:
+       image: alpine:3.5
+       command: sh -c "for i in 1 2 3 4 5; do wget -s -q http://app:5000/ && break || sleep 20; done && wget -s -q http://app:5000/" | echo 'works'
+
+  integration_step:
+    type: composition
+    working_directory: /root/demochat
+    composition:
+      version: '2'
+      services:
+        app:
+          image: ${{build_step}}
+          links:
+            - mongo
+          ports:
+            - 5000
+        mongo:
+          image: mongo
+    composition-candidates:
+      main:
+       image: alpine:3.5
+       command: sh -c "sleep 40 && wget -q http://app:5000/" | echo 'works

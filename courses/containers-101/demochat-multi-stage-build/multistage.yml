@@ -1,0 +1,9 @@
+version: '1.0'
+steps:
+
+  build_dev_step:
+    type: build
+    dockerfile: Dockerfile
+    image-name: demochat-multistage
+    tag: dev
+    squash: true

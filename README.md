@@ -1,8 +1,8 @@
 # Docker by Backwards
 
-Docker functionality showing example usage while covering Docker courses, such as:
+Docker and also Kubernetes while covering courses, such as:
 
-- [Containers 101](https://www.udemy.com/containers-101)
+- [Docker Mastery](https://www.udemy.com/course/docker-mastery)
 
 ## Table of Contents
 
@@ -14,4 +14,4 @@ Docker functionality showing example usage while covering Docker courses, such a
 
 - Courses
 
-  - [Containers 101](containers-101/README.md)
+  - [Docker Mastery](courses/docker-mastery/README.md)

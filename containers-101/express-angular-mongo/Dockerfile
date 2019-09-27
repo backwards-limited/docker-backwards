@@ -1,3 +1,0 @@
-FROM nodejs:0.2
-
-EXPOSE 3000

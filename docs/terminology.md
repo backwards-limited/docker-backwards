@@ -4,9 +4,13 @@
 
 A recipe for Docker image.
 
+- Each docker build command generates **one** image layer.
+
 ## Docker Image
 
 Blueprint of our application.
+
+- Complete docker build execution generates **one** docker image.
 
 ## Docker Container
 

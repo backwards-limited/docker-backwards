@@ -75,3 +75,21 @@ package-lock.json
 
 *.pem
 *.credentials
+
+settings.yml
+settings.js
+node_modules
+bower_components
+npm-debug.log
+.DS_Store
+.idea
+*._
+*.sw[opqr]
+*.swap
+.*.swp
+*humbs.db
+*.key
+*.pem
+*.crt
+*.csr
+coverage
