@@ -12,7 +12,6 @@ Install essentials:
 
 ```bash
 brew cask install virtualbox
-brew cask install docker
 brew cask install minikube
 brew install awscli
 brew install jq
@@ -22,3 +21,5 @@ brew install kubernetes-helm
 brew install node
 brew install httpie
 ```
+
+Finally install [Docker for Mac](https://www.docker.com/products/docker-desktop).
