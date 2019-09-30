@@ -23,3 +23,27 @@ brew install httpie
 ```
 
 Finally install [Docker for Mac](https://www.docker.com/products/docker-desktop).
+
+As a useful extra, we can have CLI completions for Docker. This can be setup for any shell, but specifically for [zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH) do the following:
+
+```bash
+brew install bash-completion
+```
+
+Add the following to your **.zshrc**:
+
+```bash
+if [[ -d /Applications/Docker.app ]]; then
+	for f in docker docker-compose docker-machine; do
+		source /Applications/Docker.app/Contents/Resources/etc/${f}.zsh-completion
+		compdef _${f} ${f}
+		autoload -U _${f}
+	done
+fi
+```
+
+And **source** said file:
+
+```bash
+source ~/.zshrc
+```
