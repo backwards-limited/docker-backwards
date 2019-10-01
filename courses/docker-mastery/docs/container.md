@@ -135,6 +135,61 @@ a32a15d65808  mysql   0.04%   373MiB / 2.934GiB   12.42%   788B / 0B    8.19kB /
 ...
 ```
 
+## Interactive
+
+```bash
+➜ docker container run -it --name proxy nginx bash
+root@e52cc4cdd961:/#
+```
+
+and from another terminal:
+
+```bash
+➜ docker container exec -it proxy bash
+root@e52cc4cdd961:/#
+```
+
+## Network
+
+Each container connected to a private virtual network **bridge** (the default). All containers on a virtual network can talk to each other without **-p** (**--port**). The best practice is to create a new virtual network for each app e.g.
+
+- network **web-app** for mysql and php/apache containers
+- network **api** for mongo and nodes containers
+
+Can attach containers to more than one virtual network (or none). Can even skip virtual networks and use host IP by using **--net=host**.
+
+```bash
+➜ docker container run --name webhost -d -p 80:80 nginx
+5b885fe9c137239d041b32db7663b7fe08341979a42572ae0c5dfda4b7c7dfee
+
+➜ docker container port webhost
+80/tcp -> 0.0.0.0:80
+```
+
+```bash
+➜ docker container inspect --format '{{ .NetworkSettings.IPAddress }}' webhost
+172.17.0.2
+```
+
+Now is that IP of the container the same as my host?
+
+<pre>
+➜ ifconfig en0
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	ether ac:bc:32:c4:d1:ef
+	inet6 fe80::4ec:1a14:b7d6:232d%en0 prefixlen 64 secured scopeid 0x5
+	<b>inet 192.168.0.3</b> netmask 0xffffff00 broadcast 192.168.0.255
+	inet6 fd6e:a34b:4588::14f6:43c9:79a1:df32 prefixlen 64 autoconf secured
+	inet6 fd6e:a34b:4588::799e:f426:b6f3:1dc2 prefixlen 64 autoconf temporary
+	inet6 2a02:c7f:682:e000:14a1:a248:4839:72be prefixlen 64 autoconf secured
+	inet6 2a02:c7f:682:e000:2432:692a:77bf:d753 prefixlen 64 autoconf temporary
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+</pre>
+
+Not the same!
+
 ## Remove (with force)
 
 ```bash
