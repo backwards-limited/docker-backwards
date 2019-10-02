@@ -190,6 +190,116 @@ en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 
 Not the same!
 
+```bash
+➜ docker network ls
+NETWORK ID          NAME                     DRIVER              SCOPE
+5423f18e63cb        bridge                   bridge              local
+297d1ec24777        host                     host                local
+eaf9d78e3ee4        none                     null                local
+a5318f1eaa28        streams-course_default   bridge              local
+```
+
+I see I have an old network hanging around:
+
+```bash
+➜ docker network rm streams-course_default
+streams-course_default
+```
+
+**Network bridge** is the default Docker virtual network which is NAT'ed behind the host IP.
+
+<pre>
+➜ docker network inspect bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "5423f18e63cbfdd01f54a98361bdc56a4772922c705c207445d7c4659d692b38",
+        "Created": "2019-09-29T15:14:47.697866781Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "49b3eb6aa3914aa8364746172f18997d88dd20f42c6c5888f68fa8edfc86c081": {
+                <b>"Name": "webhost"</b>,
+                "EndpointID": "410ebf48f110c1a65bc3e039a7cf7e4ef8dc6dc91fcbd9ad89a64966cc103f41",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+</pre>
+
+Let's create our own network:
+
+```bash
+➜ docker network create my-app-net
+f1218ce6e208fd293d9600cdae6b286d32d88fe0474d45d7c28366954267bcb3
+
+➜ docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+5423f18e63cb        bridge              bridge              local
+297d1ec24777        host                host                local
+f1218ce6e208        my-app-net          bridge              local
+eaf9d78e3ee4        none                null                local
+```
+
+Create a container on our new network:
+
+```bash
+➜ docker container run --name new-nginx -d --network my-app-net nginx
+330b2f185472b3dde3e78561c73ed588799e2714d40891dd62fa2bfeb7aea478
+```
+
+```bash
+➜ docker network inspect my-app-net
+[
+    {
+        "Name": "my-app-net",
+        "Id": "f1218ce6e208fd293d9600cdae6b286d32d88fe0474d45d7c28366954267bcb3",
+        ...
+        "Containers": {
+            "330b2f185472b3dde3e78561c73ed588799e2714d40891dd62fa2bfeb7aea478": {
+                "Name": "new-nginx",
+                "EndpointID": "2574974922ab368b5d2976b9113061b23e7581ce17f1dfdfee96df4cca654bf1",
+                "MacAddress": "02:42:ac:12:00:02",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+```
+
 ## Remove (with force)
 
 ```bash
