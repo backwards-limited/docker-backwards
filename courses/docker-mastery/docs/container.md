@@ -300,6 +300,82 @@ Create a container on our new network:
 ]
 ```
 
+## DNS
+
+Docker daemon has a built-in DNS server that containers use by default. Note that Docker defaults the hostname to the  container's name, but you can also set aliases.
+
+Let's add another container to our network:
+
+```bash
+➜ docker container run --name my-nginx -d --network my-app-net nginx
+380504361bfd86bc5a4aeb9df502315c44ef8374b043e444f8ee5ccbd67d0b75
+
+➜ docker container ls
+CONTAINER ID   IMAGE      COMMAND                  PORTS                NAMES
+380504361bfd   nginx      "nginx -g 'daemon of…"   80/tcp               my-nginx
+172b6d918024   nginx      "nginx -g 'daemon of…"   0.0.0.0:80->80/tcp   webhost
+eaa4e51920e6   nginx      "nginx -g 'daemon of…"   80/tcp               new-nginx
+
+➜ docker network inspect my-app-net
+[
+    {
+        "Name": "my-app-net",
+        ...
+        "Containers": {
+            "380504361bfd86bc5a4aeb9df502315c44ef8374b043e444f8ee5ccbd67d0b75": {
+                "Name": "my-nginx",
+                "EndpointID": "84483a4d85b5eed7e35b21024e19029bfc4047bf5b205a83f06ca66ffcdf0e7c",
+                "MacAddress": "02:42:ac:13:00:03",
+                "IPv4Address": "172.19.0.3/16",
+                "IPv6Address": ""
+            },
+            "eaa4e51920e6eddbde9c12ebf8b74556fb8b47e026f9e69c51e0f6b518af77f4": {
+                "Name": "new-nginx",
+                "EndpointID": "a8b884ce7b565510caa4c7594a19baa516bc8838433ff0b14412df1626f396e0",
+                "MacAddress": "02:42:ac:13:00:02",
+                "IPv4Address": "172.19.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+```
+
+DNS resolution should work. From one container we should be able to **ping** the other:
+
+```bash
+➜ docker container exec -it my-nginx ping new-nginx
+OCI runtime exec failed: exec failed: container_linux.go:345: starting container process caused "exec: \"ping\": executable file not found in $PATH": unknown
+```
+
+Ha! If we had ping installed:
+
+```bash
+➜ docker container exec -it my-nginx /bin/bash
+root@380504361bfd:/# apt-get update
+...
+Reading package lists... Done
+
+root@380504361bfd:/# apt-get install -y inetutils-ping
+...
+Setting up inetutils-ping (2:1.9.4-7) ...
+Processing triggers for libc-bin (2.28-10) ...
+root@380504361bfd:/# exit
+```
+
+And try again:
+
+```bash
+➜ docker container exec -it my-nginx ping new-nginx
+PING new-nginx (172.19.0.2): 56 data bytes
+64 bytes from 172.19.0.2: icmp_seq=0 ttl=64 time=0.693 ms
+...
+```
+
+Regarding the default **bridge** network, you need to use the **--link** when creating a new container.
+
 ## Remove (with force)
 
 ```bash
