@@ -47,3 +47,11 @@ And **source** said file:
 ```bash
 source ~/.zshrc
 ```
+
+Extras:
+
+```bash
+brew tap homebrew/cask-fonts
+brew cask install font-hack-nerd-font
+brew install mosh
+```
