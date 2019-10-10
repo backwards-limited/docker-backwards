@@ -80,7 +80,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 ```
 
-Let's build [Dockerfile-1](../Dockerfile-1):
+Let's build [Dockerfile-1](../dockerfiles/Dockerfile-1):
 
 ```bash
 ➜ docker image build -t my-nginx -f Dockerfile-1 .
@@ -100,3 +100,50 @@ davidainslie/nginx   latest        f949e7d76d63        10 days ago         126MB
 ```
 
 **THINGS THAT CHANGE THE MOST SHOULD BE TOWARDS THE BOTTOM OF DOCKERFILE.**
+
+Let's build [Dockerfile 2](../dockerfiles/2/Dockerfile):
+
+```bash
+➜ docker image build -t nginx-with-html .
+Sending build context to Docker daemon  3.072kB
+Step 1/3 : FROM nginx:latest
+ ---> f949e7d76d63
+Step 2/3 : WORKDIR /usr/share/nginx/html
+ ---> Running in 79858e994710
+Removing intermediate container 79858e994710
+ ---> 8d9de0d406ea
+Step 3/3 : COPY index.html index.html
+ ---> d077357c356b
+Successfully built d077357c356b
+Successfully tagged nginx-with-html:latest
+```
+
+```bash
+➜ docker container run --rm -p 80:80 nginx-with-html
+```
+
+```bash
+➜ http localhost:80
+HTTP/1.1 200 OK
+...
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Your 2nd Dockerfile worked!</title>
+</head>
+
+<body>
+  <h1>You just successfully ran a container with a custom file copied into the image at build time!</h1>
+</body>
+</html>
+```
+
+And if we wanted to tag to push:
+
+```bash
+➜ docker image tag nginx-with-html:latest davidainslie/nginx-with-html:latest
+
+➜ docker image push davidainslie/nginx-with-html:latest
+```
+
