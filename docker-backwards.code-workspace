@@ -1,7 +1,10 @@
 {
 	"folders": [
-		{
-			"path": "."
-		}
-	]
+    {
+      "path": "."
+    },
+    {
+      "path": "/Users/davidainslie/workspace/docker/docker-mastery"
+    }
+  ]
 }

@@ -11,6 +11,8 @@ VOLUME /var/lib/mysql
 
 This volume would outlive the container until someone deletes said volume.
 
+## Data Volume
+
 Before we begin, and if you don't mind losing anything:
 
 ```bash
@@ -160,5 +162,75 @@ local               mysql-db
         "Scope": "local"
     }
 ]
+```
+
+## Bind Mounting
+
+- Map a host file or directory to a container file or directory
+- Cannot be used in Dockerfile - must be at **container run**
+- Differs from previous **run** command by specifying actual host location starting with **/** e.g.
+  - run -v /Users/davidainslie/stuff:/path/container
+
+Let's take another look at [Dockerfile](../dockerfiles/2/Dockerfile) where there is also [index.html](../dockerfiles/2/index.html) and if we bind said location at runtime, we can edit the html outside the container and see the effects take place inside. So, in the directory of [Dockerfile](../dockerfiles/2):
+
+```bash
+docker-backwards/courses/docker-mastery/dockerfiles/2
+➜ docker container run -d --name nginx -p 80:80 -v $(pwd):/usr/share/nginx/html nginx
+be09c307d96329ff618cf48a3648e0f398c3c26e44fa95a8b1c52d3d35aad76d
+```
+
+```bash
+➜ http localhost
+HTTP/1.1 200 OK
+...
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Your 2nd Dockerfile worked!</title>
+</head>
+
+<body>
+  <h1>You just successfully ran a container with a custom file copied into the image at build time!</h1>
+</body>
+</html>
+```
+
+**See what happened?** We used the official nginx and yet viewed (using http, curl or browser) our custom index.html because of the binding.
+
+Run the official image again without the binding (and on different port) to see default html:
+
+```bash
+docker-backwards/courses/docker-mastery/dockerfiles/2
+➜ docker container run -d --name nginx2 -p 8080:80 nginx
+```
+
+```bash
+➜ http localhost:8080
+HTTP/1.1 200 OK
+...
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
 ```
 
