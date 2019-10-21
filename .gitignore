@@ -93,3 +93,5 @@ npm-debug.log
 *.crt
 *.csr
 coverage
+
+.metals
