@@ -13,3 +13,4 @@
 - [Assignment 6 - Bind Mounts](assignments/6/assignment-6-bind-mounts.md)
 - [Docker Compose]
   - [docker-compose.yml](docs/compose/yml.md)
+  - [Assignment 7 - Compose File for Multi Container Service](assignments/7/assignment-7-compose-for-multi-containers.md)
