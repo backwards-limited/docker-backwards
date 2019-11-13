@@ -15,3 +15,8 @@
   - [docker-compose.yml](docs/compose/yml.md)
   - [Assignment 7 - Compose File for Multi Container Service](assignments/7/assignment-7-compose-for-multi-containers.md)
   - [Using Compose to Build](docs/compose/build.md)
+  - [Assignment 8 - Multi-Container Development](assignments/8/assignment-8-multi-container-development.md)
+- [Docker Swarm]
+  - [Introduction](docs/swarm/introduction.md)
+  - [First Service](docs/swarm/first-service.md)
+  - [3 Node Swarm](docs/swarm/3-node-swarm.md)

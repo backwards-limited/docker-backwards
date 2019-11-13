@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   drupal:
-    image: drupal
+    image: drupal:8.6
     ports:
       - 8080:80
     depends_on:
@@ -14,7 +14,7 @@ services:
       - drupal-themes:/var/www/html/themes
 
   postgres:
-    image: postgres
+    image: postgres:9.6
     environment:
       POSTGRES_PASSWORD: blah
     volumes:
