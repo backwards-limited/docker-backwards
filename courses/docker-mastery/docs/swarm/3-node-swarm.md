@@ -234,17 +234,18 @@ And we can remove/delete say node1 and node2:
 ➜ docker-machine rm node1 node2
 ```
 
-From node1 initialise the Swarm:
+From node1 initialise the Swarm (we'll choose the second IP):
 
 ```bash
 docker@node1:~$ docker swarm init
-Error response from daemon: could not choose an IP address to advertise since this system has multiple addresses on different interfaces (10.0.2.15 on eth0 and 192.168.99.121 on eth1) - specify one with --advertise-addr
-docker@node1:~$ docker swarm init --advertise-addr 10.0.2.15
-Swarm initialized: current node (wojbkt6p0n82pkxhruvz8a995) is now a manager.
+Error response from daemon: could not choose an IP address to advertise since this system has multiple addresses on different interfaces (10.0.2.15 on eth0 and 192.168.99.124 on eth1) - specify one with --advertise-addr
+
+docker@node1:~$ docker swarm init --advertise-addr 192.168.99.124
+Swarm initialized: current node (52m1yp0qbfsge8x68iajoys7r) is now a manager.
 
 To add a worker to this swarm, run the following command:
 
-    docker swarm join --token SWMTKN-1-1zbyi3s9ooentwsvb7fcb0w06jd2d8kazrahi3na8e32uim6h7-49418mmpewfnesp0adcuilh3l 10.0.2.15:2377
+    docker swarm join --token SWMTKN-1-2ssr1wjeoa829m5x8t41sg7ovo881vm6hkue4ruc67dw05zoy3-9eo8lqlnizo7votcqggns860e 192.168.99.124:2377
 
 To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
 ```
@@ -252,6 +253,14 @@ To add a manager to this swarm, run 'docker swarm join-token manager' and follow
 Copy the **docker swarm join** command and run on node2:
 
 ```bash
+docker@node2:~$ docker swarm join --token SWMTKN-1-2ssr1wjeoa829m5x8t41sg7ovo881vm6hkue4ruc67dw05zoy3-9eo8lqlnizo7votcqggns860e 192.168.99.124:2377
+This node joined a swarm as a worker.
+```
 
+and for node3:
+
+```bash
+docker@node3:~$ docker swarm join --token SWMTKN-1-2ssr1wjeoa829m5x8t41sg7ovo881vm6hkue4ruc67dw05zoy3-9eo8lqlnizo7votcqggns860e 192.168.99.124:2377
+This node joined a swarm as a worker.
 ```
 

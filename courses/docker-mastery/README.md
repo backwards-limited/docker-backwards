@@ -20,3 +20,4 @@
   - [Introduction](docs/swarm/introduction.md)
   - [First Service](docs/swarm/first-service.md)
   - [3 Node Swarm](docs/swarm/3-node-swarm.md)
+  - [Scaling Out with Overlay Network](docs/swarm/scaling-out-with-overlay-network.md)
