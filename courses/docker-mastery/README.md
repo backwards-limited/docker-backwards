@@ -21,3 +21,4 @@
   - [First Service](docs/swarm/first-service.md)
   - [3 Node Swarm](docs/swarm/3-node-swarm.md)
   - [Scaling Out with Overlay Network](docs/swarm/scaling-out-with-overlay-network.md)
+  - [Scaling out with Routing Mesh](docs/swarm/scaling-out-with-routing-mesh.md)
