@@ -22,3 +22,5 @@
   - [3 Node Swarm](docs/swarm/3-node-swarm.md)
   - [Scaling Out with Overlay Network](docs/swarm/scaling-out-with-overlay-network.md)
   - [Scaling out with Routing Mesh](docs/swarm/scaling-out-with-routing-mesh.md)
+  - [Assignment 9 - Multi Service App](assignments/9/assignment-9-multi-service-app.md)
+  - [Stacks](docs/swarm/stacks.md)
