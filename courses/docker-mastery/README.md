@@ -24,3 +24,4 @@
   - [Scaling out with Routing Mesh](docs/swarm/scaling-out-with-routing-mesh.md)
   - [Assignment 9 - Multi Service App](assignments/9/assignment-9-multi-service-app.md)
   - [Stacks](docs/swarm/stacks.md)
+  - [Secrets](docs/swarm/secrets.md)
