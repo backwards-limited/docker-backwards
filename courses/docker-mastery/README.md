@@ -25,3 +25,5 @@
   - [Assignment 9 - Multi Service App](assignments/9/assignment-9-multi-service-app.md)
   - [Stacks](docs/swarm/stacks.md)
   - [Secrets](docs/swarm/secrets.md)
+  - [Assignment 10 - Create Stack with Secrets](assignments/10/assignment-10-create-stack-with-secrets.md)
+  - [Secrets with Local Docker Compose](docs/swarm/secrets-with-local-docker-compose.md)
