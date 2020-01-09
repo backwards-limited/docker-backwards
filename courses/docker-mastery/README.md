@@ -27,3 +27,5 @@
   - [Secrets](docs/swarm/secrets.md)
   - [Assignment 10 - Create Stack with Secrets](assignments/10/assignment-10-create-stack-with-secrets.md)
   - [Secrets with Local Docker Compose](docs/swarm/secrets-with-local-docker-compose.md)
+  - [Full App Lifecycle with Single Compose](docs/swarm/full-app-lifecycle-with-single-compose.md)
+  - [Service Updates](docs/swarm/service-updates.md)
