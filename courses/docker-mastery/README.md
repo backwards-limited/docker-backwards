@@ -11,12 +11,12 @@
 - [Container Lifetime and Volumes](docs/container-lifetime-and-volumes.md)
 - [Assignment 5 - Database Container Upgrade](assignments/5/assignment-5-database-container-upgrade.md)
 - [Assignment 6 - Bind Mounts](assignments/6/assignment-6-bind-mounts.md)
-- [Docker Compose]
+- Docker Compose
   - [docker-compose.yml](docs/compose/yml.md)
   - [Assignment 7 - Compose File for Multi Container Service](assignments/7/assignment-7-compose-for-multi-containers.md)
   - [Using Compose to Build](docs/compose/build.md)
   - [Assignment 8 - Multi-Container Development](assignments/8/assignment-8-multi-container-development.md)
-- [Docker Swarm]
+- Docker Swarm
   - [Introduction](docs/swarm/introduction.md)
   - [First Service](docs/swarm/first-service.md)
   - [3 Node Swarm](docs/swarm/3-node-swarm.md)
@@ -30,5 +30,5 @@
   - [Full App Lifecycle with Single Compose](docs/swarm/full-app-lifecycle-with-single-compose.md)
   - [Service Updates](docs/swarm/service-updates.md)
 - [Health Checks](docs/health-checks.md)
-- [Registry]
+- Registry
   - [Dockerhub](docs/registy/dockerhub.md)
