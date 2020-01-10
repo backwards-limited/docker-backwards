@@ -29,3 +29,6 @@
   - [Secrets with Local Docker Compose](docs/swarm/secrets-with-local-docker-compose.md)
   - [Full App Lifecycle with Single Compose](docs/swarm/full-app-lifecycle-with-single-compose.md)
   - [Service Updates](docs/swarm/service-updates.md)
+- [Health Checks](docs/health-checks.md)
+- [Registry]
+  - [Dockerhub](docs/registy/dockerhub.md)
