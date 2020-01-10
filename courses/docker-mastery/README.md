@@ -31,4 +31,4 @@
   - [Service Updates](docs/swarm/service-updates.md)
 - [Health Checks](docs/health-checks.md)
 - Registry
-  - [Dockerhub](docs/registy/dockerhub.md)
+  - [Dockerhub](docs/registry/dockerhub.md)
