@@ -147,3 +147,102 @@ registry-data
                 └── hello-world
 ```
 
+## Using Docker Registry with Swarm
+
+Let's do this on [play with docker](https://labs.play-with-docker.com):
+
+![Tools](../images/play-with-docker-1.png)
+
+---
+
+![Template](../images/play-with-docker-2.png)
+
+```bash
+[manager1] (local) root@192.168.0.14 ~
+$ docker node ls
+ID                            HOSTNAME       STATUS    AVAILABILITY    MANAGER STATUS
+iesh9ywarixg2xrlfzw9vhzox *   manager1       Ready     Active          Reachable
+bw0gyfbts6q21rs329v3kl69k     manager2       Ready     Active          Reachable
+5yg8oq046402xoel5i42djlao     manager3       Ready     Active          Reachable
+zmab0g1l7x5bo9olvesjixyf9     manager4       Ready     Active          Leader
+6en00y26bwqwchh351rgg1jry     manager5       Ready     Active          Reachable
+```
+
+Create the registry:
+
+```bash
+[manager1] (local) root@192.168.0.14 ~
+$ docker service create --name registry --publish 5000:5000 registry
+t1myt42qj3dzl1xbykajgcbrf
+overall progress: 1 out of 1 tasks 
+1/1: running   [==================================================>] 
+verify: Service converged
+```
+
+```bash
+[manager1] (local) root@192.168.0.14 ~
+$ docker service ps registry
+ID             NAME        IMAGE            NODE      DESIRED STATE  CURRENT STATE
+nc4gm9n0amch   registry.1  registry:latest  manager4  Running        Running about a minute ago 
+```
+
+![Published port](../images/play-with-docker-3.png)
+
+---
+
+![Registry UI](../images/play-with-docker-4.png)
+
+---
+
+![Registry catalog](../images/play-with-docker-5.png)
+
+Now pull an image:
+
+```bash
+[manager1] (local) root@192.168.0.14 ~
+$ docker pull hello-world
+Using default tag: latest
+latest: Pulling from library/hello-world
+1b930d010525: Pull complete 
+Digest: sha256:9572f7cdcee8591948c2963463447a53466950b3fc15a247fcad1917ca215a2f
+Status: Downloaded newer image for hello-world:latest
+docker.io/library/hello-world:latest
+```
+
+Tag it:
+
+```bash
+[manager1] (local) root@192.168.0.14 ~
+$ docker tag hello-world 127.0.0.1:5000/hello-world
+```
+
+An push:
+
+```bash
+[manager1] (local) root@192.168.0.14 ~
+$ docker push 127.0.0.1:5000/hello-world
+The push refers to repository [127.0.0.1:5000/hello-world]
+af0b15c8625b: Pushed 
+latest: digest: sha256:92c7f9c92844bbbb5d0a101b22f7c2a7949e40f8ea90c8b3bc396879d95e899a
+```
+
+Refresh the category UI:
+
+![Category refreshed](../images/play-with-docker-6.png)
+
+Let's do the same with nginx but also create a service:
+
+```bash
+[manager1] (local) root@192.168.0.14 ~
+$ docker pull nginx
+
+$ docker tag nginx 127.0.0.1:5000/nginx
+
+$ docker push 127.0.0.1:5000/nginx
+The push refers to repository [127.0.0.1:5000/nginx]
+
+$ docker service create --name nginx -p 80:80 --replicas 5 --detach=false 127.0.0.1:5000/nginx
+qcd2aregqh2i993ha6ffi3hbq
+```
+
+And click on the new port (80) at the top of the UI to **Welcome to nginx!**.
