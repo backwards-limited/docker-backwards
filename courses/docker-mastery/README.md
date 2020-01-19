@@ -32,3 +32,6 @@
 - [Health Checks](docs/health-checks.md)
 - Registry
   - [Dockerhub](docs/registry/dockerhub.md)
+- Kubernetes
+  - [Introduction](docs/kubernetes/introduction.md)
+  - [Exposing Kubernetes Ports](docs/kubernetes/exposing-kubernetes-ports.md)

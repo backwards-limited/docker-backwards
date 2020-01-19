@@ -18,6 +18,7 @@ brew install jq
 brew install kubernetes-cli
 brew install kubectl
 brew install kubernetes-helm
+brew tap johanhaleby/kubetail && brew install kubetail
 brew install node
 brew install httpie
 ```
