@@ -246,3 +246,17 @@ service "httpenv-lb" deleted
 deployment "httpenv" deleted
 ```
 
+## Kubernetes Services DNS
+
+Using hostname to access service:
+
+```bash
+➜ curl <hostname>
+```
+
+Services also have a FQDN:
+
+```bash
+➜ curl <hostname>.<namespace>.svc.cluster.local
+```
+
