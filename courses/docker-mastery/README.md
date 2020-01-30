@@ -36,4 +36,4 @@
   - [Introduction](docs/kubernetes/introduction.md)
   - [Exposing Kubernetes Ports](docs/kubernetes/exposing-kubernetes-ports.md)
   - [Kubernetes Management](docs/kubernetes/management.md)
-  
+  - [Declarative YAML](docs/kubernetes/declarative-yaml.md)
