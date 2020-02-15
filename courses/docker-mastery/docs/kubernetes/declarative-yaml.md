@@ -168,3 +168,60 @@ A nice webpage is the [API reference](https://kubernetes.io/docs/reference/gener
 
 ![API reference](../images/api-reference.png)
 
+## Dry Run
+
+Let's dry run a [manifest](app.yml)... the traditional way i.e. client only:
+
+```bash
+➜ kc apply -f app.yml --dry-run
+service/app-nginx-service created (dry run)
+deployment.apps/app-nginx-deployment created (dry run)
+```
+
+Now let's actually run our service and then do a **server dry run**:
+
+```bash
+➜ kc apply -f app.yml
+service/app-nginx-service created
+deployment.apps/app-nginx-deployment created
+
+➜ kc apply -f app.yml --server-dry-run
+service/app-nginx-service unchanged (server dry run)
+deployment.apps/app-nginx-deployment unchanged (server dry run)
+```
+
+Change the replicas to 2 in the deployment, and add label to **metadata**.
+
+And get a **diff**:
+
+```bash
+➜ kc diff -f app.yml
+diff -u -N /var/folders/h7/qbkgx9zn0nq222xx5pgh6t6r0000gn/T/LIVE-736449334/apps.v1.Deployment.default.app-nginx-deployment /var/folders/h7/qbkgx9zn0nq222xx5pgh6t6r0000gn/T/MERGED-509728541/apps.v1.Deployment.default.app-nginx-deployment
+--- /var/folders/h7/qbkgx9zn0nq222xx5pgh6t6r0000gn/T/LIVE-736449334/apps.v1.Deployment.default.app-nginx-deployment	2020-02-06 19:13:58.000000000 +0000
++++ /var/folders/h7/qbkgx9zn0nq222xx5pgh6t6r0000gn/T/MERGED-509728541/apps.v1.Deployment.default.app-nginx-deployment	2020-02-06 19:13:58.000000000 +0000
+@@ -6,7 +6,9 @@
+     kubectl.kubernetes.io/last-applied-configuration: |
+       {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"app-nginx-deployment","namespace":"default"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"app-nginx"}},"template":{"metadata":{"labels":{"app":"app-nginx"}},"spec":{"containers":[{"image":"nginx:1.17.3","name":"nginx","ports":[{"containerPort":80}]}]}}}}
+   creationTimestamp: "2020-02-06T19:07:08Z"
+-  generation: 1
++  generation: 2
++  labels:
++    servers: dmz
+   name: app-nginx-deployment
+   namespace: default
+   resourceVersion: "113595"
+@@ -14,7 +16,7 @@
+   uid: 9f329bd5-ff93-4b16-bce4-57a9bc55eab6
+ spec:
+   progressDeadlineSeconds: 600
+-  replicas: 3
++  replicas: 2
+   revisionHistoryLimit: 10
+   selector:
+     matchLabels:
+```
+
+## Labels and Annotations
+
+- Label selectors: The **glue** telling **Services** and **Deployments** which **pods** are theirs
+- And so many resources use Label Selectors to **link** resource dependencies
