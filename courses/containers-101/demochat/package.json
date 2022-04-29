@@ -57,7 +57,7 @@
   },
   "homepage": "https://github.com/sdelements/lets-chat",
   "dependencies": {
-    "async": "^1.4.2",
+    "async": "^2.6.4",
     "bcryptjs": "~2.2.2",
     "bluebird": "^3.5.0",
     "bluebird-retry": "^0.10.1",
